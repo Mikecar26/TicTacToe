@@ -38,60 +38,393 @@ public:
 
         return result;
     }
-    void canWin(Entry e, TicTacToe& t)
+
+    bool canWin(Entry e, Entry computer, TicTacToe& t)
     {
-        // first col
-        if (board[0][0] == (char)e && board[0][1] == (char)e && t.board[0][2] == t.empty())
+        // first col - | X |
+        //             | X |
+        //             | - |
+        if (board[0][0] == (char)e && board[0][1] == (char)e && t.board[0][2] == t.EMPTY)
         {
-            t.board[rowChoice][colChoice] = (char)computer;
-            return;
+            t.board[0][2] = (char)computer;
+            return true;
+        }
+        // first col - | X |
+        //             | - |
+        //             | X |
+        if (board[0][0] == (char)e && t.board[0][1] == t.EMPTY && board[0][2] == (char)e)
+        {
+            t.board[0][1] = (char)computer;
+            return true;
+        }
+        // first col - | - |
+        //             | X |
+        //             | X |
+        if (t.board[0][0] == t.EMPTY && board[0][1] == (char)e && board[0][2] == (char)e)
+        {
+            t.board[0][0] = (char)computer;
+            return true;
         }
 
         // second col
-        else if (board[1][0] == (char)e && board[1][1] == (char)e && board[1][2] == (char)e)
+        if (board[1][0] == (char)e && board[1][1] == (char)e && t.board[1][2] == t.EMPTY)
         {
+            t.board[1][2] = (char)computer;
+            return true;
+        }
+
+        if (board[1][0] == (char)e && t.board[1][1] == t.EMPTY && board[1][2] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+
+        if (t.board[1][0] == t.EMPTY && board[1][1] == (char)e && board[1][2] == (char)e)
+        {
+            t.board[1][0] = (char)computer;
             return true;
         }
 
         // third col
-        else if (board[2][0] == (char)e && board[2][1] == (char)e && board[2][2] == (char)e)
+        if (board[2][0] == (char)e && board[2][1] == (char)e && t.board[2][2] == t.EMPTY)
         {
+            t.board[2][2] = (char)computer;
             return true;
         }
 
-        // first row
-        else if (board[0][0] == (char)e && board[1][0] == (char)e && board[2][0] == (char)e)
+        if (board[2][0] == (char)e && t.board[2][1] == t.EMPTY && board[2][2] == (char)e)
         {
+            t.board[2][1] = (char)computer;
             return true;
         }
+
+        if (t.board[2][0] == t.EMPTY && board[2][1] == (char)e && board[2][2] == (char)e)
+        {
+            t.board[2][0] = (char)computer;
+            return true;
+        }
+
+        // first row - | X , X , - |
+        if (board[0][0] == (char)e && board[1][0] == (char)e && t.board[2][0] == t.EMPTY)
+        {
+            t.board[2][0] = (char)computer;
+            return true;
+        }
+        // first row - | X , - , X |
+        if (board[0][0] == (char)e && t.board[1][0] == t.EMPTY && board[2][0] == (char)e)
+        {
+            t.board[1][0] = (char)computer;
+            return true;
+        }
+        // first row - | - , X , X |
+        if (t.board[0][0] == t.EMPTY && board[1][0] == (char)e && board[2][0] == (char)e)
+        {
+            t.board[0][0] = (char)computer;
+            return true;
+        }
+
 
         // second row
-        else if (board[0][1] == (char)e && board[1][1] == (char)e && board[2][1] == (char)e)
+        if (board[0][1] == (char)e && board[1][1] == (char)e && t.board[2][1] == t.EMPTY)
         {
+            t.board[2][1] = (char)computer;
+            return true;
+        }
+
+        if (board[0][1] == (char)e && t.board[1][1] == t.EMPTY && board[2][1] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+
+        if (t.board[0][1] == t.EMPTY && board[1][1] == (char)e && board[2][1] == (char)e)
+        {
+            t.board[0][1] = (char)computer;
             return true;
         }
 
         // third row
-        else if (board[0][2] == (char)e && board[1][2] == (char)e && board[2][2] == (char)e)
+        if (board[0][2] == (char)e && board[1][2] == (char)e && t.board[2][2] == t.EMPTY)
         {
+            t.board[2][2] = (char)computer;
             return true;
         }
 
-        // diagonal 1
-        else if (board[0][0] == (char)e && board[1][1] == (char)e && board[2][2] == (char)e)
+        if (board[0][2] == (char)e && t.board[1][2] == t.EMPTY && board[2][2] == (char)e)
         {
+            t.board[1][2] = (char)computer;
             return true;
         }
 
-        // diagonal 2
-        else if (board[0][2] == (char)e && board[1][1] == (char)e && board[2][0] == (char)e)
+        if (t.board[0][2] == t.EMPTY && board[1][2] == (char)e && board[2][2] == (char)e)
         {
+            t.board[0][2] = (char)computer;
             return true;
         }
 
+        // diagonal 1 - | X || - || - |
+        //              | - || X || - |
+        //              | - || - || - |
+        if (board[0][0] == (char)e && board[1][1] == (char)e && t.board[2][2] == t.EMPTY)
+        {
+            t.board[2][2] = (char)computer;
+            return true;
+        }
+        // diagonal 1 - | X || - || - |
+        //              | - || - || - |
+        //              | - || - || X |
+        if (board[0][0] == (char)e && t.board[1][1] == t.EMPTY && board[2][2] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+        // diagonal 1 - | - || - || - |
+        //              | - || X || - |
+        //              | - || - || X |
+        if (t.board[0][0] == t.EMPTY && board[1][1] == (char)e && board[2][2] == (char)e)
+        {
+            t.board[0][0] = (char)computer;
+            return true;
+        }
+
+
+        // diagonal 2 - | - || - || X |
+        //              | - || X || - |
+        //              | - || - || - |
+        if (board[2][0] == (char)e && board[1][1] == (char)e && t.board[0][2] == t.EMPTY)
+        {
+            t.board[0][2] = (char)computer;
+            return true;
+        }
+        // diagonal 2 - | - || - || X |
+        //              | - || - || - |
+        //              | X || - || - |
+        if (board[2][0] == (char)e && t.board[1][1] == t.EMPTY && board[0][2] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+        // diagonal 2 - | - || - || - |
+        //              | - || X || - |
+        //              | X || - || - |
+        if (t.board[2][0] == t.EMPTY && board[1][1] == (char)e && board[0][2] == (char)e)
+        {
+            t.board[2][0] = (char)computer;
+            return true;
+        }
         return false;
     }
 
+    bool goingToLose(Entry e, Entry computer, TicTacToe& t)
+    {
+        // first col - | X |
+        //             | X |
+        //             | - |
+        if (board[0][0] == (char)e && board[0][1] == (char)e && t.board[0][2] == t.EMPTY)
+        {
+            t.board[0][2] = (char)computer;
+            return true;
+        }
+        // first col - | X |
+        //             | - |
+        //             | X |
+        if (board[0][0] == (char)e && t.board[0][1] == t.EMPTY && board[0][2] == (char)e)
+        {
+            t.board[0][1] = (char)computer;
+            return true;
+        }
+        // first col - | - |
+        //             | X |
+        //             | X |
+        if (t.board[0][0] == t.EMPTY && board[0][1] == (char)e && board[0][2] == (char)e)
+        {
+            t.board[0][0] = (char)computer;
+            return true;
+        }
+
+        // second col
+        if (board[1][0] == (char)e && board[1][1] == (char)e && t.board[1][2] == t.EMPTY)
+        {
+            t.board[1][2] = (char)computer;
+            return true;
+        }
+
+        if (board[1][0] == (char)e && t.board[1][1] == t.EMPTY && board[1][2] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+
+        if (t.board[1][0] == t.EMPTY && board[1][1] == (char)e && board[1][2] == (char)e)
+        {
+            t.board[1][0] = (char)computer;
+            return true;
+        }
+
+        // third col
+        if (board[2][0] == (char)e && board[2][1] == (char)e && t.board[2][2] == t.EMPTY)
+        {
+            t.board[2][2] = (char)computer;
+            return true;
+        }
+
+        if (board[2][0] == (char)e && t.board[2][1] == t.EMPTY && board[2][2] == (char)e)
+        {
+            t.board[2][1] = (char)computer;
+            return true;
+        }
+
+        if (t.board[2][0] == t.EMPTY && board[2][1] == (char)e && board[2][2] == (char)e)
+        {
+            t.board[2][0] = (char)computer;
+            return true;
+        }
+
+        // first row - | X , X , - |
+        if (board[0][0] == (char)e && board[1][0] == (char)e && t.board[2][0] == t.EMPTY)
+        {
+            t.board[2][0] = (char)computer;
+            return true;
+        }
+        // first row - | X , - , X |
+        if (board[0][0] == (char)e && t.board[1][0] == t.EMPTY && board[2][0] == (char)e)
+        {
+            t.board[1][0] = (char)computer;
+            return true;
+        }
+        // first row - | - , X , X |
+        if (t.board[0][0] == t.EMPTY && board[1][0] == (char)e && board[2][0] == (char)e)
+        {
+            t.board[0][0] = (char)computer;
+            return true;
+        }
+
+
+        // second row
+        if (board[0][1] == (char)e && board[1][1] == (char)e && t.board[2][1] == t.EMPTY)
+        {
+            t.board[2][1] = (char)computer;
+            return true;
+        }
+
+        if (board[0][1] == (char)e && t.board[1][1] == t.EMPTY && board[2][1] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+
+        if (t.board[0][1] == t.EMPTY && board[1][1] == (char)e && board[2][1] == (char)e)
+        {
+            t.board[0][1] = (char)computer;
+            return true;
+        }
+
+        // third row
+        if (board[0][2] == (char)e && board[1][2] == (char)e && t.board[2][2] == t.EMPTY)
+        {
+            t.board[2][2] = (char)computer;
+            return true;
+        }
+
+        if (board[0][2] == (char)e && t.board[1][2] == t.EMPTY && board[2][2] == (char)e)
+        {
+            t.board[1][2] = (char)computer;
+            return true;
+        }
+
+        if (t.board[0][2] == t.EMPTY && board[1][2] == (char)e && board[2][2] == (char)e)
+        {
+            t.board[0][2] = (char)computer;
+            return true;
+        }
+
+        // diagonal 1 - | X || - || - |
+        //              | - || X || - |
+        //              | - || - || - |
+        if (board[0][0] == (char)e && board[1][1] == (char)e && t.board[2][2] == t.EMPTY)
+        {
+            t.board[2][2] = (char)computer;
+            return true;
+        }
+        // diagonal 1 - | X || - || - |
+        //              | - || - || - |
+        //              | - || - || X |
+        if (board[0][0] == (char)e && t.board[1][1] == t.EMPTY && board[2][2] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+        // diagonal 1 - | - || - || - |
+        //              | - || X || - |
+        //              | - || - || X |
+        if (t.board[0][0] == t.EMPTY && board[1][1] == (char)e && board[2][2] == (char)e)
+        {
+            t.board[0][0] = (char)computer;
+            return true;
+        }
+
+
+        // diagonal 2 - | - || - || X |
+        //              | - || X || - |
+        //              | - || - || - |
+        if (board[2][0] == (char)e && board[1][1] == (char)e && t.board[0][2] == t.EMPTY)
+        {
+            t.board[0][2] = (char)computer;
+            return true;
+        }
+        // diagonal 2 - | - || - || X |
+        //              | - || - || - |
+        //              | X || - || - |
+        if (board[2][0] == (char)e && t.board[1][1] == t.EMPTY && board[0][2] == (char)e)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+        // diagonal 2 - | - || - || - |
+        //              | - || X || - |
+        //              | X || - || - |
+        if (t.board[2][0] == t.EMPTY && board[1][1] == (char)e && board[0][2] == (char)e)
+        {
+            t.board[2][0] = (char)computer;
+            return true;
+        }
+        return false;
+    }
+
+    bool isMiddleOpen(Entry computer, TicTacToe& t)
+    {
+        if (t.board[1][1] == t.EMPTY)
+        {
+            t.board[1][1] = (char)computer;
+            return true;
+        }
+        return false;
+    }
+
+    bool isCornerOpen(Entry computer, TicTacToe& t)
+    {
+        if (t.board[0][0] == t.EMPTY)
+        {
+            t.board[0][0] = (char)computer;
+            return true;
+        }
+        else if (t.board[0][2] == t.EMPTY)
+        {
+            t.board[0][2] = (char)computer;
+            return true;
+        }
+        else if (t.board[2][0] == t.EMPTY)
+        {
+            t.board[2][0] = (char)computer;
+            return true;
+        }
+        else if (t.board[2][2] == t.EMPTY)
+        {
+            t.board[2][2] = (char)computer;
+            return true;
+        }
+        return false;
+    }
     // has someone won?
     bool isVictory(Entry e)
     {
@@ -152,7 +485,6 @@ public:
     {
         return 3;
     }
-
 
     void dump()
     {
@@ -225,17 +557,25 @@ static bool getComputerMove(TicTacToe::Entry computer, TicTacToe& t)
         return true;
 
     // handle computer's move
-    
-    // Check if computer can win
 
+    // Check if computer can win
+    if (t.canWin(computer, t.PLAYER_TWO, t))
+        return false;
     // Check if about to lose
+    else if (t.goingToLose(computer, t.PLAYER_TWO, t))
+        return false;
     // Choose middle if open
+    else if (t.isMiddleOpen(computer, t))
+        return false;
     // Choose corner slots
+    else if (t.isCornerOpen(computer, t))
+        return false;
 
     int rowChoice = 0;
     int colChoice = 0;
 
-    do {
+    do
+    {
 
         // choose at random until we find a space that's empty
         do {
